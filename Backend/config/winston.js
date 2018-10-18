@@ -1,19 +1,12 @@
 'use strict';
 
 var winston = require('winston');
-
-const logDir = '../Backend/logs';
-const fs = require('fs');
-
-if (!fs.existsSync(logDir)) 
-{
-    fs.mkdirSync(logDir);
-}
+var appRoot = require('app-root-path');
 
 var options = {
     file: {
         level: 'info',
-        filename: `${logDir}/app.log`,
+        filename: `${appRoot}/app.log`,
         handleExceptions: true,
         json: true,
         maxsize: 5242880, // 5MB
