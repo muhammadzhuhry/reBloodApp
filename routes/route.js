@@ -28,7 +28,8 @@ module.exports = exports = function(server){
     server.use(cors.actual);
 
     // Validate Route
-    server.get('/api/validate/:controller/:input',  validate.CheckVal);
+    server.get('/api/validate/checkclient/:name', validate.clientCheckName);
+    server.get('/api/validate/checkrole/:name', validate.roleCheckName);
 
     // Client Route
     server.get('/api/client/', middleware.checkToken, client.GetAllHandler);
@@ -63,7 +64,7 @@ module.exports = exports = function(server){
     // error handler
     server.use(function(err, req, res, next) {
         res.locals.message = err.message;
-        res.locals.error = req.server.get('env') === 'development' ? err : {};
+        res.locals.error = req.app.get('env') === 'development' ? err : {};
 
         winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
 
