@@ -11,6 +11,7 @@ var role = require('../controllers/m_role');
 var pendonor = require('../controllers/t_pendonor');
 
 var validate = require('../controllers/validate');
+var menuakses = require('../controllers/m_menu_akses');
 
 // Import Middleware
 var middleware = require('../middleware/checktoken');
@@ -60,6 +61,9 @@ module.exports = exports = function(server){
     server.post('/api/pendonor/insert/', middleware.checkToken, pendonor.CreateHandler);
     server.put('/api/pendonor/update/:id', middleware.checkToken, pendonor.UpdateHandler);
     server.put('/api/pendonor/delete/:id', middleware.checkToken, pendonor.DeleteHandler);
+
+    // Menu Akses Route
+    server.get('/api/menuakses/', middleware.checkToken, menuakses.checkMenuAkses);
 
     // error handler
     server.use(function(err, req, res, next) {
